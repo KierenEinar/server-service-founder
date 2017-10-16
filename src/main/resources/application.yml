@@ -1,0 +1,39 @@
+---
+spring:
+  application:
+    name: service-founder
+  profiles: cluster-1
+server:
+  port: 4999
+eureka:
+  instance:
+    hostname: register-cluster01
+  client:
+    serviceUrl:
+      defaultZone: http://register-cluster02:5000/eureka,http://register-cluster03:4998/eureka
+---
+spring:
+  application:
+    name: service-founder
+  profiles: cluster-2
+server:
+  port: 5000
+eureka:
+  instance:
+    hostname: register-cluster02
+  client:
+    serviceUrl:
+      defaultZone: http://register-cluster01:4999/eureka,http://register-cluster03:4998/eureka
+---
+spring:
+  application:
+    name: service-founder
+  profiles: cluster-3
+server:
+  port: 4998
+eureka:
+  instance:
+    hostname: register-cluster03
+  client:
+    serviceUrl:
+      defaultZone: http://register-cluster01:4999/eureka,http://register-cluster02:5000/eureka
